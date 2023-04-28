@@ -2,35 +2,30 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Кредит</title>
+    <title>Личные данные</title>
 </head>
 <body>
-{#{% extends 'create.html' %}#}
-
 <div class="formbold-main-wrapper">
     <!-- Author: FormBold Team -->
     <!-- Learn More: https://formbold.com -->
-{#    {% extends 'create.html' %}#}
     <div class="formbold-form-wrapper">
-
-        <img src="">
 
         <form action="" method="POST">
             {% csrf_token %}
             <div class="formbold-form-title">
-                <h2 class="">Информация о кредите</h2>
+                <h2 class="">Личная информация</h2>
                 <p></p>
             </div>
 
             <div class="formbold-input-flex">
                 <div>
-                    <label for="FCU_code" class="formbold-form-label">
-                        Код ФКУ
+                    <label for="name" class="formbold-form-label">
+                        Имя
                     </label>
                     <input
                             type="text"
-                            name="FCU_code"
-                            id="FCU_code"
+                            name="name"
+                            id="name"
                             class="formbold-form-input"
                     />
                 </div>
@@ -171,7 +166,7 @@
             </div>
             <br>
             <hr>
-
+            <br>
             <div class="formbold-mb-3">
                 <label for="Occupation" class="formbold-form-label">
                     Род деятельности
@@ -195,12 +190,35 @@
                         class="formbold-form-input"
                 />
             </div>
+            <div class="formbold-mb-3">
+                <div>
+                    <label class="formbold-form-label">Кредитная история</label>
+                    <select class="formbold-form-input" name="loan_history">
+                        <option value="">Не выбрано</option>
+                        {% for loan_history in loan_histories %}
+                            <option value="{{ loan_history.loanhistory_id }}">{{ loan_history.request_descr }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+            </div>
+            <div class="formbold-mb-3">
+                <div>
+                    <label class="formbold-form-label">Кредитная история c киба</label>
+                    <select class="formbold-form-input" name="loan_history_cb">
+                        <option value="">Не выбрано</option>
+                        {% for loan_history_cb in loan_histories_cb %}
+                            <option value="{{ loan_history_cb.loan_historycb_id }}">{{ loan_history_cb.inquiery }}</option>
+                        {% endfor %}
+                    </select>
+
+                </div>
+
+            </div>
 
             <label class="formbold-form-label">
                 Результат:
             </label>
             <p style="color:green;"> Одобрено </p>
-
             <button type='submit' class="formbold-btn">Изменить</button>
         </form>
     </div>

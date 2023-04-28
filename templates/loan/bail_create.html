@@ -36,22 +36,20 @@
             </div>
             <div class="formbold-input-flex">
                 <div>
-                    <label for="bail_type" class="formbold-form-label">
-                        Тип залога
-                    </label>
-                    <input
-                            type="text"
-                            name="bail_type"
-                            id="bail_type"
-                            class="formbold-form-input"
-                    />
+                    <label class="formbold-form-label">Тип залога</label>
+                <select class="formbold-form-input" name="bail_type">
+                    {% for bailtype in bailtypes %}
+                        <option value="{{ bailtype.bailtype_id }}">{{ bailtype.bailtype_name }}</option>
+                    {% endfor %}
+                    </select>
+
                 </div>
 
             </div>
             <div class="formbold-input-flex">
                 <div>
                     <label for="bail_amount" class="formbold-form-label">
-                       Сумма залога
+                        Сумма залога
                     </label>
                     <input
                             type="text"

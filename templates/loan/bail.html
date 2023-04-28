@@ -1,10 +1,24 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>$Title$</title>
+    <meta charset="UTF-8">
+    <title>Title</title>
 </head>
 <body>
-$END$
+{% block content %}
+    <h3>Список залогов:</h3>
+    <ul>
+    {% for bail in bails %}
+    <li>{{ bail.bail_descr }}</li>
+    <li>{{ bail.bail_type }}</li>
+    <li>{{ bail.bail_amount}}</li>
+    <li>{{ bail.collateral_valuation}}</li>
+    <li>{{ bail.collateral_valuation_date}}</li>
+        <br>
+    {% endfor %}
+
+    </ul>
+
+{% endblock  %}
 </body>
 </html>
