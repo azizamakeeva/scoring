@@ -1,8 +1,6 @@
 from django.db import models
-from apps.loan.models import Loan_history
-from apps.loan_history_cb.models import Loan_history_cb
+from apps.loan.models import Aggregated_info,Loan_history
 
-# Create your models here.
 SEX_CHOICES = (
     ('F', 'Female'),
     ('M', 'Male')
@@ -27,7 +25,6 @@ class Client(models.Model):
     family_status = models.CharField(max_length=256, verbose_name='Семейное положение')
     contact = models.CharField(max_length=256, verbose_name='Контакты')
     loan_history = models.ForeignKey(Loan_history, on_delete=models.CASCADE, related_name='client_lh')
-    loan_history_cb = models.ForeignKey(Loan_history_cb, on_delete=models.CASCADE, related_name='client_lh_cb')
 
     def __str__(self):
         return self.name
@@ -35,3 +32,5 @@ class Client(models.Model):
     class Meta:
         verbose_name = 'Клиент'
         verbose_name_plural = 'Клиенты'
+
+
