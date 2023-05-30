@@ -23,11 +23,11 @@ class Inquery(models.Model):
     request_date = models.DateField(verbose_name='Дата запроса')
     sector = models.CharField(max_length=256, verbose_name='Сектор')
     reason = models.CharField(max_length=256, verbose_name='Причина')
-    result = models.ForeignKey(Result, on_delete=models.CASCADE, related_name='Inqueries')
+    result = models.ForeignKey(Result, on_delete=models.CASCADE, related_name='Inqueries', null=True, blank=True)
     belonging_to_the_current_FCU = models.IntegerField(verbose_name='Принадлежность к ФКУ')
 
     def __str__(self):
-        return self.inquery_id
+        return self.reason
 
     class Meta:
         verbose_name = 'Запрос'
@@ -82,6 +82,9 @@ class Repayment_schedule(models.Model):
         verbose_name = 'Календарь погашений'
         verbose_name_plural = 'Календари погашений'
 
+    def __str__(self):
+        return f'{self.payment_date} | {self.amount} {self.curr}'
+
 
 class Loan(models.Model):
     """Кредит"""
@@ -89,7 +92,6 @@ class Loan(models.Model):
     'Детали кредита'
     loan_id = models.AutoField(primary_key=True)
     FCU_code = models.IntegerField(verbose_name='Код ФКУ')
-    # agg_info = models.ForeignKey(Aggregated_info, on_delete=models.CASCADE, related_name='agg_info')
     branch = models.CharField(max_length=155, verbose_name='Филиал')
     loan_type = models.CharField(max_length=155, verbose_name='Тип кредита')
     type_of_credit = models.CharField(max_length=256, verbose_name='Вид кредита')
@@ -104,43 +106,50 @@ class Loan(models.Model):
     Loan_recipient = models.ForeignKey('customer.Client', on_delete=models.CASCADE, related_name='loan_client',
                                        verbose_name='Получатель кредита')
     'Ключевые даты'
-    date_of_issue = models.DateField(verbose_name='Дата выдачи')
-    last_update_date = models.DateField(verbose_name='Посл дата обновления')
-    next_payment_date = models.DateField(verbose_name='След дата платежа')
-    last_date_of_payment = models.DateField(verbose_name='Посл дата платежа')
-    date_of_restructuring = models.DateField(verbose_name='Дата реструктуризации')
-    expected_closing_date = models.DateField(verbose_name='Ожидаемая дата закрытия')
-    actual_closing_date = models.DateField(verbose_name='Действительная дата закрытия')
+    date_of_issue = models.DateField(verbose_name='Дата выдачи', null=True, blank=True)
+    last_update_date = models.DateField(verbose_name='Посл дата обновления', null=True, blank=True)
+    next_payment_date = models.DateField(verbose_name='След дата платежа', null=True, blank=True)
+    last_date_of_payment = models.DateField(verbose_name='Посл дата платежа', null=True, blank=True)
+    date_of_restructuring = models.DateField(verbose_name='Дата реструктуризации', null=True, blank=True)
+    expected_closing_date = models.DateField(verbose_name='Ожидаемая дата закрытия', null=True, blank=True)
+    actual_closing_date = models.DateField(verbose_name='Действительная дата закрытия', null=True, blank=True)
 
     main_amount_owed = models.DecimalField(max_digits=10, decimal_places=2, verbose_name='Осн сумма задолженности')
-    monthly_payment = models.CharField(max_length=128, verbose_name='Ежемесечная выплата')
-    amount_of_credit = models.DecimalField(max_digits=10, decimal_places=2, verbose_name='Сумма кредита')
-    total_amount = models.DecimalField(max_digits=10, decimal_places=2, verbose_name='Общ сумма')
-    payment_amount = models.DecimalField(max_digits=10, decimal_places=2, verbose_name='Сумма платежа')
-    frequency_of_payments = models.CharField(max_length=64, verbose_name='Периодичность платежей')
-    count_of_payments = models.IntegerField(verbose_name='кол-во платежей')
+    monthly_payment = models.CharField(max_length=128, verbose_name='Ежемесечная выплата', null=True, blank=True)
+    amount_of_credit = models.DecimalField(max_digits=10, decimal_places=2, verbose_name='Сумма кредита', null=True,
+                                           blank=True)
+    total_amount = models.DecimalField(max_digits=10, decimal_places=2, verbose_name='Общ сумма', null=True, blank=True)
+    payment_amount = models.DecimalField(max_digits=10, decimal_places=2, verbose_name='Сумма платежа', null=True,
+                                         blank=True)
+    frequency_of_payments = models.CharField(max_length=64, verbose_name='Периодичность платежей', null=True,
+                                             blank=True)
+    count_of_payments = models.IntegerField(verbose_name='кол-во платежей', null=True, blank=True)
 
-    calendar = models.ForeignKey(Repayment_schedule, on_delete=models.CASCADE, related_name='loans_calendar')
-    payment_intervals = models.CharField(max_length=128, verbose_name='Периодичность платежей')
-    amount_monthly_payments = models.DecimalField(max_digits=10, decimal_places=2,
-                                                  verbose_name='Сумма месячных платежей')
-    amount_written_off = models.DecimalField(max_digits=10, decimal_places=2, verbose_name='Списанная сумма')
-    amount_of_prolongation = models.DecimalField(max_digits=10, decimal_places=2, verbose_name='Сумма пролонгации')
-    amount_of_additional_fees = models.DecimalField(max_digits=10, decimal_places=2, verbose_name='Сумма доп сборов')
+    calendar = models.ForeignKey(Repayment_schedule, on_delete=models.CASCADE, related_name='loans_calendar', null=True,
+                                 blank=True)
+    payment_intervals = models.CharField(max_length=128, verbose_name='Периодичность платежей', null=True, blank=True)
+    amount_written_off = models.DecimalField(max_digits=10, decimal_places=2, verbose_name='Списанная сумма', null=True,
+                                             blank=True)
+    amount_of_prolongation = models.DecimalField(max_digits=10, decimal_places=2, verbose_name='Сумма пролонгации',
+                                                 null=True, blank=True)
+    amount_of_additional_fees = models.DecimalField(max_digits=10, decimal_places=2, verbose_name='Сумма доп сборов',
+                                                    null=True, blank=True)
     additional_fees_written_off = models.DecimalField(max_digits=10, decimal_places=2,
-                                                      verbose_name='Списанные доп сборы')
+                                                      verbose_name='Списанные доп сборы', null=True, blank=True)
     interest_deducted_amount = models.DecimalField(max_digits=10, decimal_places=2,
-                                                   verbose_name='Списанная сумма по процентам')
-    prolongation_date = models.DateField(verbose_name='дата пролонгации')
-    number_of_payments = models.IntegerField(verbose_name='Кол-во платежей')
+                                                   verbose_name='Списанная сумма по процентам', null=True, blank=True)
+    prolongation_date = models.DateField(verbose_name='дата пролонгации', null=True, blank=True)
 
-    amount_of_delay = models.DecimalField(max_digits=10, decimal_places=2, verbose_name='Сумма просрочки')
-    overdue_interest = models.DecimalField(max_digits=10, decimal_places=2, verbose_name='просроченные проценты')
-    number_of_days_overdue = models.IntegerField(verbose_name='Кол-во дней просрочек')
-    number_of_payments_in_arrears = models.IntegerField(verbose_name='Кол-во платежей в просрочке ')
+    amount_of_delay = models.DecimalField(max_digits=10, decimal_places=2, verbose_name='Сумма просрочки', null=True,
+                                          blank=True)
+    overdue_interest = models.DecimalField(max_digits=10, decimal_places=2, verbose_name='просроченные проценты',
+                                           null=True, blank=True)
+    number_of_days_overdue = models.IntegerField(verbose_name='Кол-во дней просрочек', null=True, blank=True)
+    number_of_payments_in_arrears = models.IntegerField(verbose_name='Кол-во платежей в просрочке ', null=True,
+                                                        blank=True)
 
     bail = models.ForeignKey(Bail, on_delete=models.CASCADE, related_name='loans_bail')
-    source = models.CharField(verbose_name='', max_length=155)
+    source = models.CharField(verbose_name='Источник', max_length=155)
 
     def __str__(self):
         return self.purpose_of_funding
@@ -155,9 +164,8 @@ class Aggregated_info(models.Model):
 
     id = models.AutoField(primary_key=True)
     inquery = models.ForeignKey(Inquery, on_delete=models.CASCADE)
-    loan = models.ForeignKey(Loan, on_delete=models.CASCADE)
     request_descr = models.CharField(max_length=128, verbose_name='Запрос')
-    last_request_to_our_FCU = models.CharField(max_length=128, verbose_name='Последний запрос нашему ФКУ')
+    last_request_to_our_FCU = models.DateField(max_length=128, verbose_name='Последний запрос нашему ФКУ')
     count_of_requests = models.IntegerField(verbose_name='кол-во запросов')
     count_of_delinquencies_on_active_loans = models.IntegerField(verbose_name='кол-во просрочек по активным кредитам')
     max_current_arrears = models.IntegerField(verbose_name='макс текущ просрочка')
@@ -174,8 +182,8 @@ class Aggregated_info(models.Model):
     count_of_requests_per_in24months = models.IntegerField(verbose_name='кол-во запроса за 24 месяца')
 
     class Meta:
-        verbose_name = 'Кредитная история'
-        verbose_name_plural = 'Кредитные истории'
+        verbose_name = 'Агрегированная информация'
+        verbose_name_plural = 'Агрегированные данные'
 
     def __str__(self):
         return self.request_descr
@@ -185,3 +193,10 @@ class Loan_history(models.Model):
     loanhistory_id = models.AutoField(primary_key=True)
     agg_info = models.ForeignKey(Aggregated_info, on_delete=models.CASCADE, related_name='loan_history_agg')
     date_of_insert = models.DateField()
+
+    class Meta:
+        verbose_name = 'Кредитная история'
+        verbose_name_plural = 'Кредитные истории'
+
+    def __str__(self):
+        return f'{self.agg_info} | {self.date_of_insert}'
