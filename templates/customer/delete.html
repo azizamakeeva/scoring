@@ -8,196 +8,34 @@
     <link rel="stylesheet" href="{% static "assets/css/style.css" %}">
     <title>Личные данные</title>
 </head>
-<body>
-<div class="card-body">
-    <!-- Author: FormBold Team -->
-    <!-- Learn More: https://formbold.com -->
-    <div class="formbold-form-wrapper">
-
-        <form method="POST" novalidate>
-            {% csrf_token %}
-            <div class="formbold-form-title">
-                <h2 class="">Личная информация</h2>
-                <p></p>
-            </div>
-
-            <div class="formbold-input-flex">
-                <div>
-                    <label for="id_name" class="formbold-form-label">Имя</label>
-                    <input type="text" name="name" id="id_name" class="formbold-form-input">
-
-                </div>
-                <div>
-                    <label for="lastname" class="formbold-form-label"> Фамилия </label>
-                    <input
-                            type="text" name="lastname" id="lastname" class="formbold-form-input"
-                    />
-                </div>
-            </div>
-
-            <div class="formbold-input-flex">
-                <div>
-                    <label for="fatherstname" class="formbold-form-label"> Отчество </label>
-                    <input
-                            type="text" name="fatherstname" id="fatherstname" class="formbold-form-input"
-                    />
-                </div>
-                <div>
-                    <label for="contact" class="formbold-form-label"> Сотовый телефон </label>
-                    <input
-                            type="number"
-                            name="contact"
-                            id="contact"
-                            class="formbold-form-input"
-                    />
-                </div>
-            </div>
-
-            <div class="formbold-input-flex">
-                <div>
-                    <label class="formbold-form-label"> Пол </label>
-                    <select class="formbold-form-input" name="sex" required="" id="id_sex">
-                        <option value="F">Женский</option>
-                        <option value="M">Мужской</option>
-
-                    </select>
-                </div>
-                <div>
-                    <label for="dateofbirth" class="formbold-form-label"> Дата рождения </label>
-                    <input
-                            type="date"
-                            name="dateofbirth"
-                            id="dateofbirth"
-                            class="formbold-form-input"
-                    />
-                </div>
-            </div>
-
-
-            <div class="formbold-mb-3">
-                <label for="address" class="formbold-form-label">
-                    Адрес
-                </label>
-                <input
-                        type="text"
-                        name="address"
-                        id="address"
-                        class="formbold-form-input"
-                />
-            </div>
-
-            <div class="formbold-mb-3">
-                <label for="сitizenship" class="formbold-form-label">
-                    Гражданство
-                </label>
-                <input
-                        type="text"
-                        name="сitizenship"
-                        id="сitizenship"
-                        class="formbold-form-input"
-                />
-            </div>
-            <br>
-            <hr>
-            <div class="formbold-form-title">
-                <h4 class="">Паспортные данные</h4>
-                <p>
-                </p>
-            </div>
-
-            <div class="formbold-mb-3">
-                <label for="inn" class="formbold-form-label">
-                    ИНН
-                </label>
-                <input
-                        type="text"
-                        name="inn"
-                        id="inn"
-                        class="formbold-form-input"
-                />
-            </div>
-            <div class="formbold-mb-3">
-                <label for="distribution_organization" class="formbold-form-label">
-                    Орган выдачи
-                </label>
-                <input
-                        type="text"
-                        name="distribution_organization"
-                        id="distribution_organization"
-                        class="formbold-form-input"
-                />
-            </div>
-            <div class="formbold-input-flex">
-                <div>
-                    <label for="date_of_issue" class="formbold-form-label"> Дата выдачи </label>
-                    <input
-                            type="date"
-                            name="date_of_issue"
-                            id="date_of_issue"
-                            class="formbold-form-input"
-                    />
-                </div>
-                <div>
-                    <label for="expiration_date" class="formbold-form-label"> Срок действия</label>
-                    <input
-                            type="date"
-                            name="expiration_date"
-                            id="expiration_date"
-                            class="formbold-form-input"
-                    />
-                </div>
-            </div>
-            <div>
-                <label for="document_number" class="formbold-form-label"> Номер документа </label>
-                <input
-                        type="text"
-                        name="document_number"
-                        id="document_number"
-                        class="formbold-form-input"
-                />
-            </div>
-            <br>
-            <hr>
-            <br>
-            <div class="formbold-mb-3">
-                <label for="Occupation" class="formbold-form-label">
-                    Род деятельности
-                </label>
-                <input
-                        type="text"
-                        name="Occupation"
-                        id="Occupation"
-                        class="formbold-form-input"
-                />
-            </div>
-
-            <div class="formbold-mb-3">
-                <label for="family_status" class="formbold-form-label">
-                    Семейное положение
-                </label>
-                <input
-                        type="text"
-                        name="family_status"
-                        id="family_status"
-                        class="formbold-form-input"
-                />
-            </div>
-            <div class="formbold-mb-3">
-                <div>
-                    <label class="formbold-form-label">Кредитная история</label>
-                    <select class="formbold-form-input" name="loan_history">
-                        <option value="">Не выбрано</option>
-                        {% for loan_history in loan_histories %}
-                            <option value="{{ loan_history.loanhistory_id }}">{{ loan_history.agg_info }}</option>
-                        {% endfor %}
-                    </select>
-                </div>
-            </div>
-
-            <button type='submit' class="formbold-btn">Сохранить</button>
-        </form>
+{% block content %}
+    <body>
+    <div class="card-body">
+        <!-- Author: FormBold Team -->
+        <!-- Learn More: https://formbold.com -->
+        <div class="formbold-form-wrapper">
+            {#            <form method="POST">#}
+            {#                {% csrf_token %}#}
+            {#                <div class="formbold-form-title">#}
+            {#                    <h2 class="">Удаление</h2>#}
+            {#                </div>#}
+            {##}
+            {#                <div class="formbold-input-flex">#}
+            {#                    <div>#}
+            {#                        <label for="id_name" class="formbold-form-label">Вы действительно хотите#}
+            {#                            удалить {{ object }} ? </label>#}
+            {#                    </div>#}
+            {#                </div>#}
+            {#                <input type='submit' value="Удалить" class="formbold-btn">#}
+            {#            </form>#}
+            <form method="post">
+                {% csrf_token %}
+                <label class="formbold-form-label">Вы действительно хотите удалить {{ object }} ? </label>
+                <input type="submit" value="Confirm">
+            </form>
+        </div>
     </div>
-</div>
+{% endblock %}
 <style>
     @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
 

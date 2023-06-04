@@ -40,10 +40,10 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'widget_tweaks',
 
     # apps
     'apps.loan',
-    'apps.loan_history_cb',
     'apps.customer',
     'apps.employee',
 ]
@@ -118,7 +118,8 @@ AUTH_PASSWORD_VALIDATORS = [
 
 # Internationalization
 # https://docs.djangoproject.com/en/4.1/topics/i18n/
-
+LOGIN_REDIRECT_URL ='/'
+LOGOUT_REDIRECT_URL = 'login'
 LANGUAGE_CODE = 'en-us'
 
 TIME_ZONE = 'UTC'
@@ -134,6 +135,8 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR / "static")
 ]
+MEDIA_ROOT = '/Users/azizamakeeva/myProjects/bachelor/scoring/static/images'
+MEDIA_URL = '/images/'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field

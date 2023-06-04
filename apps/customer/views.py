@@ -1,10 +1,10 @@
-from django.shortcuts import render
-from django.http import HttpResponseRedirect
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404, redirect
+from django.urls import reverse_lazy
+from django.views.generic import ListView, CreateView, DeleteView, DetailView
+from django.views.generic.edit import UpdateView
+
 from apps.loan.models import Loan_history
 from .forms import ClientForm
-from django.shortcuts import redirect
-from django.views.generic.list import ListView
 from .models import Client
 
 
@@ -13,16 +13,56 @@ class ClientViewList(ListView):
         clients = Client.objects.all()
         return render(request, 'pages/customer/customer-table.html', {'clients': clients})
 
-    def create_client(request):
-        loan_histories = Loan_history.objects.all()
-        if request.method == "POST":
-            form = ClientForm(request.POST)
-            if form.is_valid():
-                form.save()
-                return redirect('index')  # ?
 
-        else:
-            form = ClientForm()
+class AddClient(CreateView):
+    model = Client
+    form_class = ClientForm
+    template_name = 'customer/create.html'
+    success_url = '/'
 
-        return render(request, "customer/create.html",
-                      {"form": form, "loan_histories": loan_histories, "loan_histories_cb": loan_histories_cb})
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['loan_histories'] = Loan_history.objects.all()
+        return context
+
+
+class ClientDetailView(DetailView):
+    model = Client
+    # template_name = 'customer/client_detail.html'
+    context_object_name = 'client'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['loan_histories'] = Loan_history.objects.all()
+        context['client_list'] = Client.objects.all()
+        return context
+
+
+class UpdateClient(UpdateView):
+    form_class = ClientForm
+    model = Client
+    template_name = 'customer/update.html'
+
+    def get_success_url(self):
+        return reverse_lazy('client-detail', kwargs={'pk': self.object.pk})
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['loan_histories'] = Loan_history.objects.all()
+        return context
+
+
+class DeleteClient(DeleteView):
+    model = Client
+    form_class = ClientForm
+    template_name = 'customer/delete.html'
+    success_url = '/'
+
+
+def deleteClient(request, pk):
+    client = get_object_or_404(Client, pk=pk)
+    form = ClientForm(request.POST or None, instance=client)
+    if form.is_valid():
+        form.save()
+        return redirect('/')
+    return render(request, 'customer/delete.html', {'object': client})

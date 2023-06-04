@@ -121,8 +121,7 @@ class Loan(models.Model):
     total_amount = models.DecimalField(max_digits=10, decimal_places=2, verbose_name='Общ сумма', null=True, blank=True)
     payment_amount = models.DecimalField(max_digits=10, decimal_places=2, verbose_name='Сумма платежа', null=True,
                                          blank=True)
-    frequency_of_payments = models.CharField(max_length=64, verbose_name='Периодичность платежей', null=True,
-                                             blank=True)
+
     count_of_payments = models.IntegerField(verbose_name='кол-во платежей', null=True, blank=True)
 
     calendar = models.ForeignKey(Repayment_schedule, on_delete=models.CASCADE, related_name='loans_calendar', null=True,

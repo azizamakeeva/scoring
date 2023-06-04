@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -85,7 +86,7 @@
                 <span class="nav-link">Navigation</span>
             </li>
             <li class="nav-item menu-items">
-                <a class="nav-link" href="#">
+                <a class="nav-link" href="{% url 'index' %}">
               <span class="menu-icon">
                 <i class="mdi mdi-speedometer"></i>
               </span>
@@ -101,11 +102,20 @@
                 </a>
             </li>
             <li class="nav-item menu-items">
-                <a class="nav-link" href="loans-table.html">
+                <a class="nav-link" href="{% url 'loanslist' %}">
               <span class="menu-icon">
                 <i class="mdi mdi-speedometer"></i>
               </span>
                     <span class="menu-title">Кредиты</span>
+                </a>
+            </li>
+            <li class="nav-item menu-items">
+                <a class="nav-link" href="{% url 'historieslist' %}">
+
+              <span class="menu-icon">
+                <i class="mdi mdi-history"></i>
+              </span>
+                    <span class="menu-title">Кредитная история</span>
                 </a>
             </li>
             <li class="nav-item menu-items">
@@ -268,36 +278,80 @@
                              aria-labelledby="createbuttonDropdown">
                             <h6 class="p-3 mb-0">Projects</h6>
                             <div class="dropdown-divider"></div>
-                            <a class="dropdown-item preview-item">
+                            <a href="{% url 'create_loan' %}" class="dropdown-item preview-item">
                                 <div class="preview-thumbnail">
                                     <div class="preview-icon bg-dark rounded-circle">
-                                        <i class="mdi mdi-file-outline text-primary"></i>
+                                        <i class="mdi mdi-speedometer text-primary"></i>
                                     </div>
                                 </div>
                                 <div class="preview-item-content">
-                                    <p class="preview-subject ellipsis mb-1">Software Development</p>
+                                    <p class="preview-subject ellipsis mb-1">Кредит</p>
                                 </div>
                             </a>
                             <div class="dropdown-divider"></div>
-                            <a class="dropdown-item preview-item">
+                            <a href="{% url 'create_loanhistory' %}" class="dropdown-item preview-item">
                                 <div class="preview-thumbnail">
                                     <div class="preview-icon bg-dark rounded-circle">
-                                        <i class="mdi mdi-web text-info"></i>
+                                        <i class="mdi mdi-history text-primary"></i>
                                     </div>
                                 </div>
                                 <div class="preview-item-content">
-                                    <p class="preview-subject ellipsis mb-1">UI Development</p>
+                                    <p class="preview-subject ellipsis mb-1">Кредитную историю</p>
+                                </div>
+                            </a>
+
+                            <div class="dropdown-divider"></div>
+                            <a href="{% url 'create_client' %}" class="dropdown-item preview-item">
+                                <div class="preview-thumbnail">
+                                    <div class="preview-icon bg-dark rounded-circle">
+                                        <i class="mdi mdi-account text-primary"></i>
+                                    </div>
+                                </div>
+                                <div class="preview-item-content">
+                                    <p class="preview-subject ellipsis mb-1">Клиент</p>
                                 </div>
                             </a>
                             <div class="dropdown-divider"></div>
-                            <a class="dropdown-item preview-item">
+                            <a href="{% url 'create_agg' %}" class="dropdown-item preview-item">
                                 <div class="preview-thumbnail">
                                     <div class="preview-icon bg-dark rounded-circle">
-                                        <i class="mdi mdi-layers text-danger"></i>
+                                        <i class="mdi mdi-information text-primary"></i>
                                     </div>
                                 </div>
                                 <div class="preview-item-content">
-                                    <p class="preview-subject ellipsis mb-1">Software Testing</p>
+                                    <p class="preview-subject ellipsis mb-1">Агрегированные данные</p>
+                                </div>
+                            </a>
+                            <div class="dropdown-divider"></div>
+                            <a href="{% url 'create_bail' %}" class="dropdown-item preview-item">
+                                <div class="preview-thumbnail">
+                                    <div class="preview-icon bg-dark rounded-circle">
+                                        <i class="mdi mdi-sofa text-primary"></i>
+                                    </div>
+                                </div>
+                                <div class="preview-item-content">
+                                    <p class="preview-subject ellipsis mb-1">Залог</p>
+                                </div>
+                            </a>
+                            <div class="dropdown-divider"></div>
+                            <a href="{% url 'create_inquery' %}" class="dropdown-item preview-item">
+                                <div class="preview-thumbnail">
+                                    <div class="preview-icon bg-dark rounded-circle">
+                                        <i class="mdi mdi-comment-question-outline text-primary"></i>
+                                    </div>
+                                </div>
+                                <div class="preview-item-content">
+                                    <p class="preview-subject ellipsis mb-1">Запрос</p>
+                                </div>
+                            </a>
+                            <a href="{% url 'create_calendar' %}" class="dropdown-item preview-item">
+                                <div class="preview-thumbnail">
+                                    <div class="preview-icon bg-dark rounded-circle">
+                                        <i class="mdi mdi-calendar text-primary"></i>
+                                    </div>
+                                </div>
+                                <div class="preview-item-content">
+                                    <p class="preview-subject ellipsis mb-1">Календарь погашений</p>
                                 </div>
                             </a>
                             <div class="dropdown-divider"></div>
@@ -321,7 +375,7 @@
                             <div class="dropdown-divider"></div>
                             <a class="dropdown-item preview-item">
                                 <div class="preview-thumbnail">
-                                    <img src="../../../static/assets/images/faces/face4.jpg" alt="image"
+                                    <img src="{% static 'assets/images/faces/face4.jpg' %}" alt="image"
                                          class="rounded-circle profile-pic">
                                 </div>
                                 <div class="preview-item-content">
@@ -332,7 +386,7 @@
                             <div class="dropdown-divider"></div>
                             <a class="dropdown-item preview-item">
                                 <div class="preview-thumbnail">
-                                    <img src="../../../static/assets/images/faces/face2.jpg" alt="image"
+                                    <img src="{% static 'assets/images/faces/face2.jpg' %}" alt="image"
                                          class="rounded-circle profile-pic">
                                 </div>
                                 <div class="preview-item-content">
@@ -343,7 +397,7 @@
                             <div class="dropdown-divider"></div>
                             <a class="dropdown-item preview-item">
                                 <div class="preview-thumbnail">
-                                    <img src="../../../static/assets/images/faces/face3.jpg" alt="image"
+                                    <img src="{% static 'assets/images/faces/face3.jpg' %}" alt="image"
                                          class="rounded-circle profile-pic">
                                 </div>
                                 <div class="preview-item-content">
@@ -408,9 +462,9 @@
                     <li class="nav-item dropdown">
                         <a class="nav-link" id="profileDropdown" href="#" data-toggle="dropdown">
                             <div class="navbar-profile">
-                                <img class="img-xs rounded-circle" src="../../../static/assets/images/faces/face15.jpg"
+                                <img class="img-xs rounded-circle" src="{% static 'assets/images/faces/face15.jpg' %}"
                                      alt="">
-                                <p class="mb-0 d-none d-sm-block navbar-profile-name">Henry Klein</p>
+                                <p class="mb-0 d-none d-sm-block navbar-profile-name">{{ user }}</p>
                                 <i class="mdi mdi-menu-down d-none d-sm-block"></i>
                             </div>
                         </a>
@@ -429,7 +483,7 @@
                                 </div>
                             </a>
                             <div class="dropdown-divider"></div>
-                            <a class="dropdown-item preview-item">
+                            <a  href="{% url 'logout' %}" class="dropdown-item preview-item">
                                 <div class="preview-thumbnail">
                                     <div class="preview-icon bg-dark rounded-circle">
                                         <i class="mdi mdi-logout text-danger"></i>
@@ -462,20 +516,16 @@
                                 <thead>
                                 <tr>
                                     <th> #</th>
-                                    <th> ФИО</th>
-                                    <th> Код ФКУ</th>
-                                    <th> Сумма кредита</th>
-                                    <th> Статус</th>
+                                    <th> Результат</th>
+                                    <th> Причина</th>
                                 </tr>
                                 </thead>
                                 <tbody>
-                                {% for loan in loans %}
+                                {% for result in results %}
                                     <tr>
-                                    <td> {{ loan.loan_id }}</td>
-                                    <td> {{ loan.Loan_recipient }}</td>
-                                    <td> {{ loan.FCU_code }}</td>
-                                    <td> {{ loan.amount_of_credit }}</td>
-                                    <td>{{ loan.status }}</td>
+                                    <td> {{ result.result_id }}</td>
+                                    <td> {{ result.result }}</td>
+                                    <td> {{ result.reason }}</td>
                                 {% endfor %}
                                 </tr>
                                 </tbody>

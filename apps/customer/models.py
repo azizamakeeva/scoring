@@ -1,5 +1,6 @@
 from django.db import models
-from apps.loan.models import Aggregated_info,Loan_history
+from apps.loan.models import Aggregated_info, Loan_history
+from django.shortcuts import reverse
 
 SEX_CHOICES = (
     ('F', 'Female'),
@@ -24,13 +25,15 @@ class Client(models.Model):
     Occupation = models.CharField(max_length=256, verbose_name='Род деятельности')
     family_status = models.CharField(max_length=256, verbose_name='Семейное положение')
     contact = models.CharField(max_length=256, verbose_name='Контакты')
-    loan_history = models.ForeignKey(Loan_history, on_delete=models.CASCADE, related_name='client_lh')
+    loan_history = models.ForeignKey(Loan_history, on_delete=models.CASCADE, related_name='client_lh', null=True,
+                                     blank=True)
 
     def __str__(self):
         return self.name
 
+    def get_absolute_url(self):
+        return reverse('myurl', kwargs={'id': self.client_id, 'name': self.name})
+
     class Meta:
         verbose_name = 'Клиент'
         verbose_name_plural = 'Клиенты'
-
-

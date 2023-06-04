@@ -9,6 +9,12 @@ media
 # Backup files #
 *.bak
 
+
+### macOS ###
+*.DS_Store
+.AppleDouble
+.LSOverride
+
 # If you are using PyCharm #
 # User-specific stuff
 .idea/

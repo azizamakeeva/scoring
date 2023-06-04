@@ -483,7 +483,7 @@
                                 </div>
                             </a>
                             <div class="dropdown-divider"></div>
-                            <a  href="{% url 'logout' %}" class="dropdown-item preview-item">
+                            <a href="{% url 'logout' %}" class="dropdown-item preview-item">
                                 <div class="preview-thumbnail">
                                     <div class="preview-icon bg-dark rounded-circle">
                                         <i class="mdi mdi-logout text-danger"></i>
@@ -525,25 +525,27 @@
                                 <tbody>
                                 {% for loan in loans %}
                                     <tr>
+
                                     <td> {{ loan.loan_id }}</td>
-                                    <td> {{ loan.Loan_recipient }}</td>
+                                    <td><a href="{% url 'loan-detail'  loan.loan_id %}"> {{ loan.Loan_recipient }} </a>
+                                    </td>
                                     <td> {{ loan.FCU_code }}</td>
                                     <td> {{ loan.amount_of_credit }}</td>
                                     <td>{{ loan.status }}</td>
                                     <td>
-                                        <a href="">
+                                        <a href="{% url 'loan-update' loan.loan_id %}">
                                             <button type="button" class="btn btn-inverse-info btn-fw">
                                                 Edit
                                             </button>
                                         </a>
                                     </td>
-                                    <td>
-                                        <a href="/delete/loan/{{loan.loan_id}}/">
-                                            <button type="button" class="btn btn-inverse-danger btn-fw">
-                                                Delete
-                                            </button>
-                                        </a>
-                                    </td>
+{#                                    <td>#}
+{#                                        <a href="/delete/loan/{{ loan.loan_id }}/">#}
+{#                                            <button type="button" class="btn btn-inverse-danger btn-fw">#}
+{#                                                Delete#}
+{#                                            </button>#}
+{#                                        </a>#}
+{#                                    </td>#}
                                 {% endfor %}
                                 </tr>
                                 </tbody>

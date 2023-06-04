@@ -483,7 +483,7 @@
                                 </div>
                             </a>
                             <div class="dropdown-divider"></div>
-                            <a  href="{% url 'logout' %}" class="dropdown-item preview-item">
+                            <a href="{% url 'logout' %}" class="dropdown-item preview-item">
                                 <div class="preview-thumbnail">
                                     <div class="preview-icon bg-dark rounded-circle">
                                         <i class="mdi mdi-logout text-danger"></i>
@@ -527,18 +527,22 @@
                                             <tbody>
                                             <tr>
                                                 {% for client in clients %}
+
                                                     <td class="py-1">
                                                         <img src="../../../static/assets/images/faces-clipart/pic-1.png"
                                                              alt="image"/>
                                                     </td>
-                                                    <td>{{ client.name }}</td>
-                                                    <td>
-                                                        <div class="progress">
-                                                            <div class="progress-bar bg-success" role="progressbar"
-                                                                 style="width: 25%" aria-valuenow="25" aria-valuemin="0"
-                                                                 aria-valuemax="100"></div>
-                                                        </div>
-                                                    </td>
+
+
+                                                    <td><a href="{% url 'client-detail' client.client_id %}">{{ client.name }} </a></td>
+                                                        <td>
+                                                            <div class="progress">
+                                                                <div class="progress-bar bg-success" role="progressbar"
+                                                                     style="width: 25%" aria-valuenow="25"
+                                                                     aria-valuemin="0"
+                                                                     aria-valuemax="100"></div>
+                                                            </div>
+                                                        </td>
                                                     <td> $ 77.99</td>
                                                     <td> May 15, 2015</td>
                                                     <td>
@@ -549,11 +553,11 @@
                                                         </a>
                                                     </td>
                                                     <td>
-                                                        <a href="{% url 'delete_client' client.client_id %}">
-                                                            <button type="button" class="btn btn-inverse-danger btn-fw">
-                                                                Delete
-                                                            </button>
-                                                        </a>
+{#                                                        <a href="{% url 'delete_client' client.client_id %}">#}
+{#                                                            <button type="button" class="btn btn-inverse-danger btn-fw">#}
+{#                                                                Delete#}
+{#                                                            </button>#}
+{#                                                        </a>#}
                                                     </td>
                                                     </tr>
                                                 {% endfor %}
